@@ -56,10 +56,10 @@ deriv (Chr c) c'
    | c == c'   = Epsilon
    | otherwise = Empty
 deriv (e :*: e') c
-   | null e    = (deriv e c .*. e') .|. deriv e' c
+   | null e    = (deriv e c .*. e') :|: deriv e' c
    | otherwise = deriv e c .*. e'
-deriv (e :|: e') c = deriv e c .|. deriv e' c
-deriv (Star e) c = deriv e c .*. star e
+deriv (e :|: e') c = deriv e c :|: deriv e' c
+deriv (Star e) c = deriv e c :*: star e
 
 -- prefix computation
 
